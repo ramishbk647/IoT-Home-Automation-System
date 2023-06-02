@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Pet Feeder</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Smart Pet Feeder</h1>
+    <h2>Feeder Status</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Surrounding Temperature Detected</th>
+				<th>Servo Motor Dispensing</th>
+                <th>Availability of Food</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+    </table>
+	<br/>
+    <button onclick="sendCommand()">Dispense Food</button>
+
+    <script>
+        function getData() {
+            fetch('getdata.php')
+                .then(response => response.json())
+                .then(data => {
+                    let tableBody = document.getElementById('dataBody');
+                    tableBody.innerHTML = '';
+                    data.forEach(row => {
+                        let newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>${row.timestamp}</td>
+                            <td>${row.temperature}</td>
+							<td>${row.servo}</td>
+                            <td>${row.fooddispense}</td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    });
+                });
+        }
+
+        function sendCommand() {
+            fetch('sendcommand.php', {
+                method: 'POST',
+                body: '1'
+            })
+                .then(() => {
+                    console.log('Command sent successfully');
+                })
+                .catch(error => {
+                    console.error('Error sending command:', error);
+                });
+        }
+
+        // Load data when the page is first loaded
+        getData();
+        // Refresh data every 5 seconds
+        setInterval(getData, 5000);
+    </script>
+</body>
+</html>
