@@ -12,7 +12,7 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 # Initialize serial communication with the nodes
-ser = serial.Serial('/dev/ttyUSB0', 9600)  # Replace '/dev/ttyUSB0' with your serial port
+ser = serial.Serial('/dev/ttyUSB0', 9600)  
 
 while True:
     # Read data from the nodes
