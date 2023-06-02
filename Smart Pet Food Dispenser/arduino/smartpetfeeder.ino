@@ -73,5 +73,5 @@ void dispenseFood(){
 	Servo1.write(0);
 	delay(1000);
 	Servo1.write(90);
-	Serial.println("Dispense Sucessfully!");
+	Serial.println("dispensed: Sucessfully!");
 }	
