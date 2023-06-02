@@ -32,7 +32,7 @@ while True:
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute("INSERT INTO datasaver (timestamp, fooddispense) VALUES (%s, %s)", (timestamp, value))
             conn.commit()
-        elif node == 'Dispense Sucessfully!':
+        elif node == 'dispensed':
             # Save servo motor data to the database
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute("INSERT INTO datasaver (timestamp, servo) VALUES (%s, %s)", (timestamp, value))
